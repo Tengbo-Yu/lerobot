@@ -245,6 +245,7 @@ def train(cfg: TrainPipelineConfig):
             if wandb_logger:
                 wandb_logger.log_policy(checkpoint_dir)
 
+        # print("-----------------", cfg.env)
         if cfg.env and is_eval_step:
             step_id = get_step_identifier(step, cfg.steps)
             logging.info(f"Eval policy at step {step}")
