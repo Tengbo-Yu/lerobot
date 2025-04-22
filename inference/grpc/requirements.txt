@@ -1,0 +1,5 @@
+grpcio>=1.57.0
+grpcio-tools>=1.57.0
+numpy>=1.24.0
+torch>=2.0.0
+opencv-python>=4.8.0 

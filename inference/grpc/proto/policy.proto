@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package policy;
+
+service PolicyService {
+  // Predict action based on observation
+  rpc Predict(PredictRequest) returns (PredictResponse) {}
+  
+  // Health check endpoint
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
+  
+  // Get model information
+  rpc GetModelInfo(ModelInfoRequest) returns (ModelInfoResponse) {}
+}
+
+// Request message containing image and state data
+message PredictRequest {
+  // Original fields (for backward compatibility)
+  repeated float image = 1 [packed=true]; // Flattened image tensor
+  int32 image_channels = 2;  // Number of channels (3 for RGB)
+  
+  // New fields for compressed image data
+  bytes encoded_image = 6;   // JPEG or other encoded image data for wrist camera
+  string image_format = 7;   // Format of the encoded image (e.g., "jpeg")
+  
+  // Common fields
+  int32 image_height = 3;    // Height of the wrist camera image
+  int32 image_width = 4;     // Width of the wrist camera image
+  repeated float state = 5 [packed=true]; // State vector (expected size: 7)
+  
+  // Second camera (head camera) fields
+  bytes encoded_image2 = 8;  // JPEG or other encoded image data for head camera
+  int32 image2_height = 9;   // Height of the head camera image
+  int32 image2_width = 10;   // Width of the head camera image
+  
+  // Task description for language-conditioned policies (PI0, PI0fast)
+  string task = 11;          // Task description (e.g., "pick the cube into the box")
+}
+
+// Response message containing the predicted action
+message PredictResponse {
+  repeated float prediction = 1 [packed=true]; // Predicted action vector
+  float inference_time_ms = 2; // Inference time in milliseconds
+}
+
+// Empty request for health check
+message HealthCheckRequest {}
+
+// Response for health check
+message HealthCheckResponse {
+  string status = 1; // "healthy" if the service is running properly
+}
+
+// Empty request for model info
+message ModelInfoRequest {}
+
+// Response containing model information
+message ModelInfoResponse {
+  string status = 1;         // "loaded" or "not_loaded"
+  string model_path = 2;     // Path to the loaded model
+  string device = 3;         // Device used for inference (cpu, cuda, mps)
+  string input_features = 4; // Description of input features
+  string output_features = 5; // Description of output features
+  string message = 6;        // Additional information
+} 
