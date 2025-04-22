@@ -28,7 +28,7 @@ class PI0Config(PreTrainedConfig):
     # Input / output structure.
     n_obs_steps: int = 1
     chunk_size: int = 10
-    n_action_steps: int = 5
+    n_action_steps: int = 10
 
     normalization_mapping: dict[str, NormalizationMode] = field(
         default_factory=lambda: {
