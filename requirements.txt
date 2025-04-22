@@ -4,3 +4,4 @@ grpcio-tools>=1.57.0
 opencv-python>=4.8.0
 fastparquet>=0.8.0 
 protobuf
+scipy
