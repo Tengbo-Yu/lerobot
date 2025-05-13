@@ -16,7 +16,7 @@
 logs
 tmp
 wandb
-
+model
 # Data
 data
 outputs
@@ -33,7 +33,7 @@ nautilus/*.yaml
 
 # Slurm
 sbatch*.sh
-train.sh
+scripts/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

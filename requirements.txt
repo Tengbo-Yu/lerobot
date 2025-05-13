@@ -5,3 +5,4 @@ opencv-python>=4.8.0
 fastparquet>=0.8.0 
 protobuf
 scipy
+pytest
